@@ -13,7 +13,7 @@
    <VBox alignment="CENTER" fillWidth="false" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="174.0" prefWidth="591.0" spacing="20.0" styleClass="card">
       <children>
             <Label styleClass="title" text="Hello and Welcome to the GPA Calculator" textAlignment="CENTER" wrapText="true" />
-            <Button alignment="CENTER" styleClass="yellow-button" text="Start GPA Calculator" textAlignment="CENTER" wrapText="true" />
+            <Button alignment="CENTER" onAction="#startButton" styleClass="yellow-button" text="Start GPA Calculator" textAlignment="CENTER" wrapText="true" />
       </children>
       <opaqueInsets>
          <Insets />
@@ -22,7 +22,5 @@
          <Insets top="20.0" />
       </padding>
    </VBox>
-
-    <Label fx:id="welcomeText" styleClass="small-text" />
 
 </VBox>
