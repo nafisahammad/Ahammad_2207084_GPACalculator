@@ -11,6 +11,7 @@ module com.example.ahammad_2207084_cvbuilder {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires javafx.graphics;
+    requires java.desktop;
 
     opens com.example.ahammad_2207084_cvbuilder to javafx.fxml;
     exports com.example.ahammad_2207084_cvbuilder;

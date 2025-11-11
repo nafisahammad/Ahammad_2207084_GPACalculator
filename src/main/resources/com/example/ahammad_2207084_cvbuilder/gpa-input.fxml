@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -29,16 +30,16 @@
                   <VBox>
                      <children>
                         <Label styleClass="small-text" text="Course Credit" />
-                        <TextField fx:id="txtCourseCredit" styleClass="text-field" />
+                        <TextField fx:id="txtCourseCredit" prefWidth="100.0" styleClass="text-field" />
                      </children>
                   </VBox>
                   <VBox>
                      <children>
                         <Label styleClass="small-text" text="Grade" />
-                        <TextField fx:id="txtGrade" styleClass="text-field" />
+                        <TextField fx:id="txtGrade" prefWidth="100.0" />
                      </children>
                   </VBox>
-                  <Button fx:id="addCourse" mnemonicParsing="false" onAction="#addCourse" styleClass="yellow-button" text="Add Course" />
+                  <Button fx:id="addCourse" mnemonicParsing="false" onAction="#addCourse" styleClass="yellow-button" text="Add Course" textAlignment="CENTER" />
                </children>
             </HBox>
             <TableView fx:id="table" prefWidth="788.0">
@@ -51,6 +52,15 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="751.0" spacing="100.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#getResult" styleClass="yellow-button" text="Get Results" />
+                  <Button alignment="CENTER" mnemonicParsing="false" styleClass="yellow-button" text="Clear All" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
