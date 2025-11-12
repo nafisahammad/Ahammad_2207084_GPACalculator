@@ -15,7 +15,10 @@
             <TableView fx:id="resultTable" prefWidth="788.0">
               <columns>
                 <TableColumn fx:id="resultCourseCode" text="Course Code" />
+                  <TableColumn fx:id="resultCourseName" prefWidth="75.0" text="Course Name" />
                 <TableColumn fx:id="resultCourseCredit" text="Course Credit" />
+                  <TableColumn fx:id="resultTeacher1" prefWidth="75.0" text="Teacher1 Name" />
+                  <TableColumn fx:id="resultTeacher2" prefWidth="75.0" text="Teacher2 Name" />
                   <TableColumn fx:id="resultGrade" text="Grade" />
               </columns>
                <columnResizePolicy>
@@ -25,7 +28,7 @@
             <HBox spacing="10.0">
                <children>
                   <Label styleClass="title" text="Your GPA is" />
-                  <Label style="-fx-text-fill: #F1C40FFF;" styleClass="title" text="NULL" />
+                  <Label fx:id="gpa" style="-fx-text-fill: #F1C40FFF;" styleClass="title" text="NULL" />
                   <Label styleClass="title" text="Congratulations!" />
                </children>
             </HBox>
