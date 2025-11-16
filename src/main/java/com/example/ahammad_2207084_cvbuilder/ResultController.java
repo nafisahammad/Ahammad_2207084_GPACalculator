@@ -53,7 +53,7 @@ public class ResultController {
         resultTable.setSelectionModel(null);
     }
 
-    public void getResult(ObservableList<Course> courseList) {
+    public void calculate(ObservableList<Course> courseList) {
 
         resultTable.setItems(courseList);
 

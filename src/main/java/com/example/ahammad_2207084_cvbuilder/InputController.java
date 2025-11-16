@@ -216,7 +216,7 @@ public class InputController {
 
             ResultController resultController = loader.getController();
 
-            resultController.getResult(courseList);
+            resultController.calculate(courseList);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
