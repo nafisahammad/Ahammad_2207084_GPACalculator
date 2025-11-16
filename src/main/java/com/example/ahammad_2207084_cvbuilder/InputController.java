@@ -204,13 +204,13 @@ public class InputController {
     }
 
 
-
     @FXML
     private void getResult(ActionEvent event) throws IOException {
         if (courseList.isEmpty()) {
             warning.setText("Course list is empty");
         }
         else  {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("results.fxml"));
             Parent root = loader.load();
 
@@ -218,10 +218,8 @@ public class InputController {
 
             resultController.calculate(courseList);
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-
         }
     }
 }

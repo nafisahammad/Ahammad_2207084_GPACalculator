@@ -89,12 +89,13 @@ public class ResultController {
             default:   return 0.0;
         }
     }
+
     @FXML
     private void toBack(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("gpa-input.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
