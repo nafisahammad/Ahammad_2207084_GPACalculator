@@ -167,7 +167,13 @@ public class InputController {
         alert.setTitle("Success");
         alert.setHeaderText(null);
         alert.setContentText("Course added successfully!");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("theme.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+
         alert.showAndWait();
+
 
         txtCourseCode.clear();
         txtCourseCredit.clear();
