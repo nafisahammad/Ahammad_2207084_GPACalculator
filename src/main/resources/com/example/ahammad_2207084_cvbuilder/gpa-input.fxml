@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -31,19 +32,19 @@
                     </VBox.margin>
                 </HBox>
 
-                <GridPane hgap="10.0" vgap="10.0">
+                <GridPane hgap="10.0" vgap="2.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" minWidth="80.0" prefWidth="90.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="220.0" />
                         <ColumnConstraints hgrow="NEVER" minWidth="70.0" prefWidth="70.0" />
-                        <ColumnConstraints hgrow="NEVER" minWidth="70.0" prefWidth="70.0" />
+                        <ColumnConstraints hgrow="NEVER" minWidth="80.0" prefWidth="80.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
                         <ColumnConstraints hgrow="ALWAYS" minWidth="90.0" prefWidth="90.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="NEVER" />
                     </rowConstraints>
 
                     <Label styleClass="small-text" text="Code" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -56,11 +57,11 @@
                     <TextField fx:id="txtCourseCode" prefWidth="90.0" styleClass="text-field" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <TextField fx:id="txtCourseName" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <TextField fx:id="txtCourseCredit" prefWidth="70.0" styleClass="text-field" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                    <TextField fx:id="txtGrade" prefWidth="70.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                     <TextField fx:id="txtTeacher1" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                     <TextField fx:id="txtTeacher2" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="5" GridPane.rowIndex="1" />
 
-                    <Button fx:id="addCourse1" mnemonicParsing="false" onAction="#addCourse" prefWidth="100.0" styleClass="yellow-button" text="Add" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                    <Button fx:id="addCourse1" minWidth="100.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="86.0" prefWidth="90.0" styleClass="yellow-button" text="Add" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+               <ComboBox fx:id="txtGrade" prefWidth="80.0" promptText="..." GridPane.columnIndex="3" GridPane.rowIndex="1" />
                 </GridPane>
 
                 <TableView fx:id="table" maxHeight="1.7976931348623157E308" prefHeight="250.0">
@@ -89,9 +90,9 @@
       
                       <HBox alignment="CENTER" prefHeight="50.0" spacing="100.0">
                           <children>
-                              <Button fx:id="getResult" alignment="CENTER" mnemonicParsing="false" onAction="#getResult" prefWidth="150.0" styleClass="yellow-button" text="Calculate GPA" />
-                        <Button fx:id="deleteSelected" alignment="CENTER" mnemonicParsing="false" onAction="#deleteSelected" prefWidth="150.0" styleClass="yellow-button" text="Delete" />
-                              <Button fx:id="clearAll" alignment="CENTER" mnemonicParsing="false" onAction="#clearAll" prefWidth="150.0" styleClass="yellow-button" text="Clear All" />
+                              <Button fx:id="getResult" alignment="CENTER" mnemonicParsing="false" onAction="#getResult" styleClass="yellow-button" text="Calculate GPA" />
+                        <Button fx:id="deleteSelected" alignment="CENTER" mnemonicParsing="false" onAction="#deleteSelected" styleClass="yellow-button" text="Delete Selected" />
+                              <Button fx:id="clearAll" alignment="CENTER" mnemonicParsing="false" onAction="#clearAll" styleClass="yellow-button" text="Clear All" />
                           </children>
                       </HBox>
                </children>

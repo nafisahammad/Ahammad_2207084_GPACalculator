@@ -12,6 +12,7 @@ module com.example.ahammad_2207084_cvbuilder {
     requires com.almasb.fxgl.all;
     requires javafx.graphics;
     requires java.desktop;
+    requires javafx.base;
 
     opens com.example.ahammad_2207084_cvbuilder to javafx.fxml;
     exports com.example.ahammad_2207084_cvbuilder;

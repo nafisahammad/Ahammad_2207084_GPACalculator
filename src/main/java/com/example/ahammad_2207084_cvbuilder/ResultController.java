@@ -53,42 +53,12 @@ public class ResultController {
         resultTable.setSelectionModel(null);
     }
 
-    public void calculate(ObservableList<Course> courseList) {
-
-        resultTable.setItems(courseList);
-
-        double totalCredits = 0;
-        double totalGradePoints = 0;
-
-        for (Course c : courseList) {
-            double credit = Double.parseDouble(c.getCourseCredit().trim());
-            double gradePoint = getGradePoint(c.getGrade());
-
-            totalCredits += credit;
-            totalGradePoints += gradePoint * credit;
-        }
-
-        if (totalCredits == 0) return;
-        double gpaValue = totalGradePoints / totalCredits;
+    public void setResult(CourseModel myCourseModel) {
+        double gpaValue= myCourseModel.calculateGPA();
+        resultTable.setItems(myCourseModel.getCourseList());
         gpa.setText(String.format("%.2f", gpaValue));
     }
 
-    private static double getGradePoint(String grade) {
-        switch (grade.toUpperCase()) {
-            case "A+": return 4.0;
-            case "A":  return 3.75;
-            case "A-": return 3.5;
-            case "B+": return 3.25;
-            case "B":  return 3.0;
-            case "B-": return 2.75;
-            case "C+": return 2.5;
-            case "C":  return 2.25;
-            case "C-": return 2.0;
-            case "D":  return 1.0;
-            case "F":  return 0.0;
-            default:   return 0.0;
-        }
-    }
 
     @FXML
     private void toBack(ActionEvent event) throws IOException {

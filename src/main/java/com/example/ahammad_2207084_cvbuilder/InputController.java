@@ -1,6 +1,5 @@
 package com.example.ahammad_2207084_cvbuilder;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +15,7 @@ import java.io.IOException;
 
 public class InputController {
 
-    private ObservableList<Course> courseList = FXCollections.observableArrayList();
+    private CourseModel myCourseModel=new CourseModel();
 
     @FXML
     private TableColumn<Course, String> courseCode;
@@ -46,7 +45,7 @@ public class InputController {
     private TextField txtCourseCredit;
 
     @FXML
-    private TextField txtGrade;
+    private ComboBox<String> txtGrade;
 
     @FXML
     private TextField txtCourseName;
@@ -71,6 +70,13 @@ public class InputController {
 
     @FXML
     public void initialize() {
+        txtGrade.getItems().addAll(
+                "A+", "A", "A-",
+                "B+", "B", "B-",
+                "C+", "C", "C-",
+                "D", "F"
+        );
+        txtGrade.setPromptText("...");
         courseCode.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
         courseCredit.setCellValueFactory(new PropertyValueFactory<>("courseCredit"));
         grade.setCellValueFactory(new PropertyValueFactory<>("grade"));
@@ -78,14 +84,14 @@ public class InputController {
         teacher1.setCellValueFactory(new PropertyValueFactory<>("teacher1"));
         teacher2.setCellValueFactory(new PropertyValueFactory<>("teacher2"));
 
-        table.setItems(courseList);
+        table.setItems(myCourseModel.getCourseList());
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         getResult.setDisable(true);
 
         txtTotalCredit.textProperty().addListener((obs, oldVal, newVal) -> checkCredits());
 
-        courseList.addListener((javafx.collections.ListChangeListener<Course>) change -> checkCredits());
+        myCourseModel.getCourseList().addListener((javafx.collections.ListChangeListener<Course>) change -> checkCredits());
     }
 
     private void checkCredits() {
@@ -99,7 +105,7 @@ public class InputController {
         }
 
         double sumCourseCredits = 0;
-        for (Course c : courseList) {
+        for (Course c : myCourseModel.getCourseList()) {
             try {
                 sumCourseCredits += Double.parseDouble(c.getCourseCredit().trim());
             } catch (NumberFormatException ignored) {}
@@ -114,27 +120,16 @@ public class InputController {
         }
     }
 
-    private boolean isValidGrade(String grade) {
-        switch (grade) {
-            case "A+": case "A": case "A-":
-            case "B+": case "B": case "B-":
-            case "C+": case "C": case "C-":
-            case "D": case "F":
-                return true;
-            default:
-                return false;
-        }
-    }
     @FXML
     private void addCourse(ActionEvent event) {
         String courseCode = txtCourseCode.getText().trim();
         String courseCreditStr = txtCourseCredit.getText().trim();
-        String grade = txtGrade.getText().trim().toUpperCase();
+        String grade = txtGrade.getSelectionModel().getSelectedItem();
         String courseName = txtCourseName.getText().trim();
         String teacher1 = txtTeacher1.getText().trim();
         String teacher2 = txtTeacher2.getText().trim();
 
-        if (courseCode.isEmpty() || courseCreditStr.isEmpty() || grade.isEmpty()
+        if (courseCode.isEmpty() || courseCreditStr.isEmpty() || grade==null
                 || courseName.isEmpty() || teacher1.isEmpty() || teacher2.isEmpty()) {
             warning.setText("⚠ Please fill all the fields");
             return;
@@ -152,8 +147,8 @@ public class InputController {
             return;
         }
 
-        if (!isValidGrade(grade)) {
-            warning.setText("⚠ Invalid grade! Use A+, A, A-, B+, B, B-, C+, C, C-, D, or F");
+        if (txtGrade==null) {
+            warning.setText("⚠ Select a grade");
             return;
         }
 
@@ -166,11 +161,19 @@ public class InputController {
                 teacher2
         );
 
-        courseList.add(newData);
+        myCourseModel.getCourseList().add(newData);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText("Course added successfully!");
+        alert.showAndWait();
 
         txtCourseCode.clear();
         txtCourseCredit.clear();
-        txtGrade.clear();
+        txtGrade.getSelectionModel().clearSelection();
+        txtGrade.setValue(null);
+        txtGrade.setPromptText("...");
         txtCourseName.clear();
         txtTeacher1.clear();
         txtTeacher2.clear();
@@ -180,10 +183,12 @@ public class InputController {
 
     @FXML
     private void clearAll() {
-        courseList.clear();
+        myCourseModel.getCourseList().clear();
         txtCourseCode.clear();
         txtCourseCredit.clear();
-        txtGrade.clear();
+        txtGrade.getSelectionModel().clearSelection();
+        txtGrade.setValue(null);
+        txtGrade.setPromptText("...");
         txtCourseName.clear();
         txtTeacher1.clear();
         txtTeacher2.clear();
@@ -196,7 +201,7 @@ public class InputController {
     private void deleteSelected() {
         ObservableList<Course> selectedCourses = table.getSelectionModel().getSelectedItems();
         if (!selectedCourses.isEmpty()) {
-            courseList.removeAll(selectedCourses);
+            myCourseModel.getCourseList().removeAll(selectedCourses);
             warning.setText("");
         } else {
             warning.setText("⚠ Please select one or more courses to delete");
@@ -206,7 +211,7 @@ public class InputController {
 
     @FXML
     private void getResult(ActionEvent event) throws IOException {
-        if (courseList.isEmpty()) {
+        if (myCourseModel.getCourseList().isEmpty()) {
             warning.setText("Course list is empty");
         }
         else  {
@@ -216,7 +221,7 @@ public class InputController {
 
             ResultController resultController = loader.getController();
 
-            resultController.calculate(courseList);
+            resultController.setResult(myCourseModel);
 
             stage.setScene(new Scene(root));
             stage.show();

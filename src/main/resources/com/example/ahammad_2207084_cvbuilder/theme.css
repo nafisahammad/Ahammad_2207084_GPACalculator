@@ -1,9 +1,7 @@
-/* Root background */
 .root-pane {
     -fx-background-color: #0E0F1A;
 }
 
-/* Card styling */
 .card {
     -fx-background-color: #1A1B27;
     -fx-background-radius: 18;
@@ -11,7 +9,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.30), 20, 0.3, 0, 6);
 }
 
-/* Titles and text */
 .title {
     -fx-text-fill: white;
     -fx-font-size: 22px;
@@ -23,7 +20,6 @@
     -fx-font-size: 14px;
 }
 
-/* TextField styling */
 .text-field {
     -fx-background-color: #2A2B3C;
     -fx-text-fill: white;
@@ -40,7 +36,6 @@
     -fx-border-width: 1.5;
 }
 
-/* Yellow button styling */
 .yellow-button {
     -fx-background-color: #F1C40F;
     -fx-text-fill: black;
@@ -59,7 +54,6 @@
     -fx-background-color: #E0B90D;
 }
 
-/* TableView styling */
 .table-view {
     -fx-background-color: #1A1B27;
     -fx-border-color: transparent;
@@ -105,7 +99,6 @@
     -fx-background-color: #2D2F40;
 }
 
-/* Scrollbar styling */
 .scroll-bar:vertical, .scroll-bar:horizontal {
     -fx-background-color: transparent;
 }
@@ -114,6 +107,52 @@
     -fx-background-color: #3B3C50;
     -fx-background-radius: 5;
 }
-.thumb:hover {
+
+.combo-box {
+    -fx-background-color: #2A2B3C;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+}
+
+.combo-box:focused {
+    -fx-background-color: #2A2B3C;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow-button:hover {
+    -fx-background-color: #33344A;
+}
+
+.combo-box .arrow {
     -fx-background-color: #F1C40F;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #2A2B3C;
+    -fx-text-fill: white;
+    -fx-padding: 6 10;
+    -fx-font-size: 14px;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #2D2F40;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-radius: 10;
+    -fx-background-color: #F1C40F;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1A1B27;
+    -fx-control-inner-background: #1A1B27;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
 }
