@@ -6,11 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
         import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -107,7 +109,7 @@ public class HistoryController {
                     private final Button btn = new Button("Show List");
 
                     {
-                        btn.getStyleClass().addAll("outline-button", "small-button");
+                        btn.getStyleClass().addAll("show-list-button");
 
                         btn.setOnAction(event -> {
                             HistoryEntry entry = getTableView().getItems().get(getIndex());
@@ -135,11 +137,22 @@ public class HistoryController {
 
     private void showDetails(HistoryEntry entry) {
         Dialog<Void> dialog = new Dialog<>();
+        DialogPane dp = dialog.getDialogPane();
+
+        dp.getStylesheets().add(
+                getClass().getResource("dialog.css").toExternalForm()
+        );
+        dp.getStyleClass().add("custom-dialog-pane");
+
         dialog.setTitle("Course Details for " + entry.getSemester());
         dialog.setHeaderText("Roll: " + entry.getRoll() +
                 " | GPA: " + String.format("%.2f", entry.getGpa()));
 
         TableView<Course> detailTable = new TableView<>();
+        detailTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        detailTable.setPrefWidth(700);
+        detailTable.setPrefHeight(400);
 
         TableColumn<Course, String> codeCol = new TableColumn<>("Course Code");
         codeCol.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCourseCode()));
@@ -163,13 +176,17 @@ public class HistoryController {
                 codeCol, nameCol, creditCol, teacher1Col, teacher2Col, gradeCol
         );
 
-        // set real data
         detailTable.setItems(entry.getCourseModel().getCourseList());
+
+        dp.setPrefWidth(750);
+        dp.setPrefHeight(480);
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
         dialog.getDialogPane().setContent(detailTable);
+
         dialog.showAndWait();
     }
+
 
 
     @FXML
@@ -210,6 +227,12 @@ public class HistoryController {
     @FXML
     private void clearHistory() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        DialogPane dp = alert.getDialogPane();
+
+        dp.getStylesheets().add(
+                getClass().getResource("alert.css").toExternalForm()
+        );
+        dp.getStyleClass().add("dialog-pane");
         alert.setTitle("Confirm Clear History");
         alert.setHeaderText("You are about to clear all GPA history.");
         alert.setContentText("Are you sure you want to proceed?");
@@ -230,7 +253,8 @@ public class HistoryController {
     }
 
     @FXML
-    private void toBack() {
-        System.out.println("Navigating back to the GPA Calculator screen...");
+    private void toBack(ActionEvent event) throws IOException {
+        ResultController resultController = new ResultController();
+        resultController.toBack(event);
     }
 }

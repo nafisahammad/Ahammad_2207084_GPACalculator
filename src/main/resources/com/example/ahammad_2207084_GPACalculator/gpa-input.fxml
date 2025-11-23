@@ -20,15 +20,17 @@
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
+            <HBox alignment="CENTER">
                <children>
-                        <Label styleClass="small-text" text="Total Credit for Semester" />
-                        <TextField fx:id="txtTotalCredit" prefWidth="80.0" styleClass="text-field" />
-      
-                                    <Label fx:id="warning" alignment="CENTER" textFill="RED" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                              <Label styleClass="small-text" text="Total Credit for Semester" />
+                              <TextField fx:id="txtTotalCredit" prefWidth="80.0" styleClass="text-field" />
+            
+                                          <Label fx:id="warning" alignment="CENTER" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#viewHistory" styleClass="outline-button" text="View History" />
                </children>
             </HBox>
 
@@ -60,7 +62,7 @@
                     <TextField fx:id="txtTeacher1" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                     <TextField fx:id="txtTeacher2" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="5" GridPane.rowIndex="1" />
 
-                    <Button fx:id="addCourse1" minWidth="100.0" mnemonicParsing="false" onAction="#addCourse" prefHeight="86.0" prefWidth="90.0" styleClass="yellow-button" text="Add" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                    <Button fx:id="addCourse1" mnemonicParsing="false" onAction="#addCourse" styleClass="yellow-button" text="Add" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                <ComboBox fx:id="txtGrade" prefWidth="80.0" promptText="..." GridPane.columnIndex="3" GridPane.rowIndex="1" />
                 </GridPane>
 

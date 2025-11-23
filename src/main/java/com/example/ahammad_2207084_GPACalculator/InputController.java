@@ -233,4 +233,9 @@ public class InputController {
             stage.show();
         }
     }
+    @FXML
+    private void viewHistory(ActionEvent event) throws IOException {
+        ResultController resultController = new ResultController();
+        resultController.viewHistory(event);
+    }
 }
