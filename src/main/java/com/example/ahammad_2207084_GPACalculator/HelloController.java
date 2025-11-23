@@ -1,4 +1,4 @@
-package com.example.ahammad_2207084_cvbuilder;
+package com.example.ahammad_2207084_GPACalculator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

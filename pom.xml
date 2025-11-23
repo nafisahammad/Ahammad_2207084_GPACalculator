@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>Ahammad_2207084_CVBuilder</artifactId>
+    <artifactId>Ahammad_2207084_GPACalculator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Ahammad_2207084_CVBuilder</name>
 
@@ -144,7 +144,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.ahammad_2207084_cvbuilder/com.example.ahammad_2207084_cvbuilder.HelloApplication
+                                com.example.ahammad_2207084_GPACalculator/com.example.ahammad_2207084_GPACalculator.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

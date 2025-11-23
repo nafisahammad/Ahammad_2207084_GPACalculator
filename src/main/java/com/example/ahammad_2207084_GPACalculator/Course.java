@@ -1,4 +1,4 @@
-package com.example.ahammad_2207084_cvbuilder;
+package com.example.ahammad_2207084_GPACalculator;
 
 public class Course {
     private String courseCode;

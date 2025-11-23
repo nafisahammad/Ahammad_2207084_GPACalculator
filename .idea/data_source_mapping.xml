@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourcePerFileMappings">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/fa1113ae-8e85-4d8a-ba80-2291ce486e8e/console.sql" value="fa1113ae-8e85-4d8a-ba80-2291ce486e8e" />
+    <file url="mock:///DatabaseHelper.java" value="fa1113ae-8e85-4d8a-ba80-2291ce486e8e" />
   </component>
 </project>

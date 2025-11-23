@@ -1,4 +1,4 @@
-module com.example.ahammad_2207084_cvbuilder {
+module com.example.ahammad_2207084_GPACalculator {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -15,6 +15,6 @@ module com.example.ahammad_2207084_cvbuilder {
     requires javafx.base;
     requires java.sql;
 
-    opens com.example.ahammad_2207084_cvbuilder to javafx.fxml;
-    exports com.example.ahammad_2207084_cvbuilder;
+    opens com.example.ahammad_2207084_GPACalculator to javafx.fxml;
+    exports com.example.ahammad_2207084_GPACalculator;
 }

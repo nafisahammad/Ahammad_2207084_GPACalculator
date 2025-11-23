@@ -1,6 +1,5 @@
-package com.example.ahammad_2207084_cvbuilder;
+package com.example.ahammad_2207084_GPACalculator;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -40,6 +40,16 @@ public class ResultController {
     @FXML
     private TableView<Course> resultTable;
 
+    @FXML
+    private TextField txtStudentRoll;
+
+    @FXML
+    private TextField txtSemesterRef;
+
+    private Double resultGPA;
+
+    private CourseModel ResultCourseModel;
+
 
     @FXML
     public void initialize() {
@@ -54,9 +64,10 @@ public class ResultController {
     }
 
     public void setResult(CourseModel myCourseModel) {
-        double gpaValue= myCourseModel.calculateGPA();
+        this.ResultCourseModel = myCourseModel;
+        this.resultGPA= myCourseModel.calculateGPA();
         resultTable.setItems(myCourseModel.getCourseList());
-        gpa.setText(String.format("%.2f", gpaValue));
+        gpa.setText(String.format("%.2f", resultGPA));
     }
 
 
@@ -68,5 +79,24 @@ public class ResultController {
 
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @FXML
+    private void viewHistory(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
+        Parent root = loader.load();
+
+        HistoryController controller = loader.getController();
+        controller.initialize();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    private void saveResult() {
+        HistoryController.HistoryEntry entry = new HistoryController.HistoryEntry(txtStudentRoll.getText(),txtSemesterRef.getText(),resultGPA,ResultCourseModel);
+        DatabaseHelper.saveEntry(entry);
     }
 }

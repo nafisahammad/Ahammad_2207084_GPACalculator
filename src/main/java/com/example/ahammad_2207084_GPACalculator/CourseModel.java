@@ -1,12 +1,26 @@
-package com.example.ahammad_2207084_cvbuilder;
+package com.example.ahammad_2207084_GPACalculator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public class CourseModel {
     private ObservableList<Course> courseList = FXCollections.observableArrayList();
+
     public ObservableList<Course> getCourseList() {
         return courseList;
+    }
+
+    public CourseModel() {}
+    public CourseModel(CourseModel courseModel) {
+        this.courseList = courseModel.getCourseList();
+    }
+    public CourseModel(List<Course> courseList) {
+        this.courseList = (ObservableList<Course>) courseList;
+    }
+    public CourseModel(ObservableList<Course> courseList) {
+        this.courseList = courseList;
     }
 
     public double calculateGPA() {
