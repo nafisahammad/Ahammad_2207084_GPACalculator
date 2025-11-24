@@ -96,7 +96,7 @@ public class ResultController {
 
     @FXML
     private void saveResult() {
-        HistoryController.HistoryEntry entry = new HistoryController.HistoryEntry(txtStudentRoll.getText(),txtSemesterRef.getText(),resultGPA,ResultCourseModel);
+        HistoryController.HistoryEntry entry = new HistoryController.HistoryEntry(0,txtStudentRoll.getText(),txtSemesterRef.getText(),resultGPA,ResultCourseModel);
         DatabaseHelper.saveEntry(entry);
     }
 }

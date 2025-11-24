@@ -37,7 +37,8 @@ public class CourseModel {
         }
 
         if (totalCredits == 0) return 0;
-        return totalGradePoints / totalCredits;
+        double gpa = totalGradePoints / totalCredits;
+        return Math.round(gpa * 100.0) / 100.0;
 
     }
 

@@ -9,7 +9,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-        import javafx.scene.layout.HBox;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -40,32 +40,39 @@ public class HistoryController {
 
 
     public static class HistoryEntry {
-        private final SimpleStringProperty roll;
-        private final SimpleStringProperty semester;
-        private final SimpleDoubleProperty gpa;
-        private final CourseModel courseModel;
+        private int id;
+        private String roll;
+        private String semester;
+        private double gpa;
+        private CourseModel courseModel;
 
-        public HistoryEntry(String roll, String semester, double gpa, CourseModel courseModel) {
-            this.roll = new SimpleStringProperty(roll);
-            this.semester = new SimpleStringProperty(semester);
-            this.gpa = new SimpleDoubleProperty(gpa);
+        public HistoryEntry(int id, String roll, String semester, double gpa, CourseModel courseModel) {
+            this.id = id;
+            this.roll = roll;
+            this.semester = semester;
+            this.gpa = gpa;
             this.courseModel = courseModel;
         }
 
-        public String getRoll() { return roll.get(); }
-        public String getSemester() { return semester.get(); }
-        public double getGpa() { return gpa.get(); }
+        public int getId() { return id; }
+        public String getRoll() { return roll; }
+        public String getSemester() { return semester; }
+        public double getGpa() { return gpa; }
         public CourseModel getCourseModel() { return courseModel; }
+
+        public void setId(int id) { this.id = id; }
     }
+
 
     @FXML
     public void initialize() {
         DatabaseHelper.createTable();
         loadHistoryDataFromDB();
 
-        colRoll.setCellValueFactory(cellData -> cellData.getValue().roll);
-        colSemester.setCellValueFactory(cellData -> cellData.getValue().semester);
-        colGPA.setCellValueFactory(cellData -> cellData.getValue().gpa.asObject());
+        colRoll.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRoll()));
+        colSemester.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSemester()));
+        colGPA.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getGpa()).asObject());
+
 
         setupSearchFiltering();
 
@@ -251,6 +258,28 @@ public class HistoryController {
             }
         });
     }
+
+    @FXML
+    private void deleteSelectedEntry() {
+        HistoryEntry selected = historyTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        DialogPane dp= confirm.getDialogPane();
+        dp.getStylesheets().add(
+                getClass().getResource("alert.css").toExternalForm()
+        );
+        confirm.setTitle("Delete Entry");
+        confirm.setHeaderText(null);
+        confirm.setContentText("Are you sure you want to delete this entry?");
+
+        if (confirm.showAndWait().get() != ButtonType.OK) return;
+
+        DatabaseHelper.deleteEntry(selected.getId());
+        masterData.remove(selected);
+        historyTable.getSelectionModel().clearSelection();
+    }
+
 
     @FXML
     private void toBack(ActionEvent event) throws IOException {

@@ -2,6 +2,8 @@ package com.example.ahammad_2207084_GPACalculator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class DatabaseHelper {
         String sql = "INSERT INTO student_gpa_entries (roll_no, semester, course_json, gpa) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, entry.getRoll());
             pstmt.setString(2, entry.getSemester());
@@ -48,35 +50,66 @@ public class DatabaseHelper {
             pstmt.setDouble(4, entry.getGpa());
             pstmt.executeUpdate();
 
-            System.out.println("History entry saved for Roll: " + entry.getRoll());
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                entry.setId(rs.getInt(1));
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(
+                    DatabaseHelper.class.getResource("alert.css").toExternalForm()
+            );
+            alert.setTitle("History Saved");
+            alert.setHeaderText(null);
+            alert.setContentText("History entry saved for Roll: " + entry.getRoll());
+            alert.showAndWait();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public static void deleteEntry(int id) {
+        String sql = "DELETE FROM student_gpa_entries WHERE id = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static List<HistoryController.HistoryEntry> loadAllEntries() {
         List<HistoryController.HistoryEntry> entries = new ArrayList<>();
-        String sql = "SELECT roll_no, semester, course_json, gpa FROM student_gpa_entries ORDER BY id DESC";
+        String sql = "SELECT id, roll_no, semester, course_json, gpa FROM student_gpa_entries ORDER BY id DESC";
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
+                int id = rs.getInt("id");
                 String roll = rs.getString("roll_no");
                 String semester = rs.getString("semester");
                 String courseJson = rs.getString("course_json");
                 double gpa = rs.getDouble("gpa");
 
                 List<Course> courses = deserializeCourseList(courseJson);
-
                 CourseModel courseModel = new CourseModel(FXCollections.observableArrayList(courses));
 
-                entries.add(new HistoryController.HistoryEntry(roll, semester, gpa, courseModel));
+                entries.add(new HistoryController.HistoryEntry(id, roll, semester, gpa, courseModel));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return entries;
     }
 
@@ -107,7 +140,7 @@ public class DatabaseHelper {
                     .append(c.getTeacher2()).append(";");
         }
 
-        return sb.substring(0, sb.length() - 1); // remove last semicolon
+        return sb.substring(0, sb.length() - 1);
     }
 
 
